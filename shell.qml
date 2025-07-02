@@ -1,6 +1,6 @@
 import Quickshell
-import "Bar"
-import "Osd"
+import "Components/Bar"
+import "Components/Osd"
 
 ShellRoot {
     Bar {}

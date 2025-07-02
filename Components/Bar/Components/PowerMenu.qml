@@ -1,8 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell.Io
-// For theme
-import "root:"
+import "root:Appearance"
 
 Row {
 

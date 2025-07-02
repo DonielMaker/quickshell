@@ -4,8 +4,7 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-
-import "root:"
+import "root:/Appearance"
 
 RowLayout {
     Process {
