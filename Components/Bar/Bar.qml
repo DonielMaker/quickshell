@@ -43,8 +43,6 @@ Scope {
                         Workspaces {}
                     }
 
-                    Item { Layout.fillWidth: true } // Spacer
-
                     // Center (Only for Clock)
                     Text {
                         id: clock
@@ -53,10 +51,17 @@ Scope {
                         text: Time.time
                     }
 
-                    Item { Layout.fillWidth: true } // Spacer
-
                     // Right side
-                    Row {
+                    RowLayout {
+                        Layout.alignment: Qt.AlignRight
+                        Battery {}
+
+                        Text {
+                            text: " | "
+                            color: "#c0caf5"
+                            font.pointSize: 10.5
+                        }
+
                         Pipewire {}
                     }
                 }
