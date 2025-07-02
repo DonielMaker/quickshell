@@ -29,41 +29,43 @@ Scope {
                 border.color: "#2F334C"
                 border.width: 2
 
-                RowLayout {
-                    anchors.fill: parent
+                // Left side
+                Row {
+                    anchors.left: parent.left
                     anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 15
 
-                    // Left side
-                    Row {
-                        spacing: 15
+                    PowerMenu {}
 
-                        PowerMenu {}
+                    Workspaces {}
+                }
 
-                        Workspaces {}
-                    }
+                // Center (Only for Clock)
+                Text {
+                    anchors.centerIn: parent
+                    anchors.verticalCenter: parent.verticalCenter
+                    id: clock
+                    font.pointSize: 10.5
+                    color: "#c0caf5"
+                    text: Time.time
+                }
 
-                    // Center (Only for Clock)
+                // Right side
+                RowLayout {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 20
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    Battery {}
+
                     Text {
-                        id: clock
-                        font.pointSize: 10.5
+                        text: " | "
                         color: "#c0caf5"
-                        text: Time.time
+                        font.pointSize: 10.5
                     }
 
-                    // Right side
-                    RowLayout {
-                        Layout.alignment: Qt.AlignRight
-                        Battery {}
-
-                        Text {
-                            text: " | "
-                            color: "#c0caf5"
-                            font.pointSize: 10.5
-                        }
-
-                        Pipewire {}
-                    }
+                    Pipewire {}
                 }
             }
         }
