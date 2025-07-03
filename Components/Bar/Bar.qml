@@ -1,5 +1,6 @@
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Services.UPower
 import QtQuick
 import QtQuick.Layouts
 import "Components"
@@ -60,6 +61,7 @@ Scope {
                     Battery {}
 
                     Text {
+                        visible: UPower.displayDevice.isLaptopBattery
                         text: " | "
                         color: "#c0caf5"
                         font.pointSize: 10.5
