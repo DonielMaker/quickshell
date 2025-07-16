@@ -42,6 +42,7 @@ Scope {
 
 		PanelWindow {
             WlrLayershell.layer: WlrLayer.Overlay
+            exclusiveZone: 0
 			// Since the panel's screen is unset, it will be picked by the compositor
 			// when the window is created. Most compositors pick the current active monitor.
 
