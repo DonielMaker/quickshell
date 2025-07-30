@@ -1,15 +1,21 @@
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Wayland
 import Quickshell.Services.UPower
+import Quickshell.Services.SystemTray
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import "Components"
+import "root:/Appearance"
 
 Scope {
     Variants {
         model: Quickshell.screens
 
         PanelWindow {
+            id: bar
+
             property var modelData
             screen: modelData
 
@@ -26,8 +32,8 @@ Scope {
             Rectangle {
                 anchors.fill: parent
                 radius: 15
-                color: "#24283b"
-                border.color: "#2F334C"
+                color: Theme.bg
+                border.color: Theme.bg_highlight
                 border.width: 2
 
                 // Left side
@@ -48,12 +54,12 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     id: clock
                     font.pointSize: 10.5
-                    color: "#c0caf5"
+                    color: Theme.fg
                     text: Time.time
                 }
 
                 // Right side
-                RowLayout {
+                Row {
                     anchors.right: parent.right
                     anchors.rightMargin: 20
                     anchors.verticalCenter: parent.verticalCenter
@@ -63,7 +69,7 @@ Scope {
                     Text {
                         visible: UPower.displayDevice.isLaptopBattery
                         text: " | "
-                        color: "#c0caf5"
+                        color: Theme.fg
                         font.pointSize: 10.5
                     }
 
