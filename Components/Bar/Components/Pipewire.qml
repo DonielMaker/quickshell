@@ -6,7 +6,9 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import "root:/Appearance"
 
+
 Row {
+    anchors.verticalCenter: parent.verticalCenter
     spacing: 10
 
     Process {
@@ -26,21 +28,20 @@ Row {
 
     // The Widget
     MouseArea {
-        implicitHeight: 40
-        implicitWidth: 40 * 1.5
-
         hoverEnabled: true
+        anchors.verticalCenter: parent.verticalCenter
+        implicitHeight: 40
+        implicitWidth: 60
 
         Rectangle {
-            anchors.fill: parent
             color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
             radius: height / 2.5
+            anchors.fill: parent
 
             Text {
                 text: `${evenSinkVolume}%  `
                 color: Theme.blue5
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
                 font.pointSize: 10.5
             }
 
@@ -48,6 +49,7 @@ Row {
                 ColorAnimation { duration: 200 }
             }
         }
+
         onClicked: pavu.running = !pavu.running
         onWheel: (wheel) => {
             if (wheel.angleDelta.y > 0) {
@@ -66,21 +68,22 @@ Row {
     }
 
     MouseArea {
-        implicitHeight: 40
-        implicitWidth: 40 * 1.5
-
         hoverEnabled: true
+        implicitHeight: 40
+        implicitWidth: 60
+        anchors.verticalCenter: parent.verticalCenter
 
         Rectangle {
             anchors.fill: parent
             color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
+            implicitHeight: 40
+            implicitWidth: 60
             radius: height / 2.5
 
             Text {
                 text: `${evenSrcVolume}% `
                 color: srcMuted? Theme.red1 : Theme.blue 
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
                 font.pointSize: 10.5
             }
 
