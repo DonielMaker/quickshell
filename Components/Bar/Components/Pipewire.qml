@@ -6,7 +6,9 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import "root:/Appearance"
 
-RowLayout {
+Row {
+    spacing: 10
+
     Process {
         id: pavu
         command: ["pavucontrol"]
@@ -17,33 +19,83 @@ RowLayout {
         objects: [ Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
     }
 
-    property bool muted: Pipewire.defaultAudioSource?.audio.muted
+    property int evenSinkVolume: Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)
+    property bool srcMuted: Pipewire.defaultAudioSource?.audio.muted
+
+    property int evenSrcVolume: Math.floor(Pipewire.defaultAudioSource?.audio.volume * 100)
 
     // The Widget
-    Button {
-        id: sink
-        background: Rectangle { color: "transparent"}
-        contentItem: Text {
-            text: `${Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)}%  `
-            color: Theme.blue5
-            font.pointSize: 10.5
+    MouseArea {
+        implicitHeight: 40
+        implicitWidth: 40 * 1.5
+
+        hoverEnabled: true
+
+        Rectangle {
+            anchors.fill: parent
+            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
+            radius: height / 2.5
+
+            Text {
+                text: `${evenSinkVolume}%  `
+                color: Theme.blue5
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pointSize: 10.5
+            }
+
+            Behavior on color {
+                ColorAnimation { duration: 200 }
+            }
         }
-        onClicked: pavu.running ? pavu.running = false : pavu.running = true
+        onClicked: pavu.running = !pavu.running
+        onWheel: (wheel) => {
+            if (wheel.angleDelta.y > 0) {
+                Pipewire.defaultAudioSink.audio.volume += 0.01
+            } else {
+                Pipewire.defaultAudioSink.audio.volume -= 0.01
+            }
+        }
     }
 
     Text {
         text: " | "
-        color: "#c0caf5"
+        color: Theme.fg
         font.pointSize: 10.5
+        anchors.verticalCenter: parent.verticalCenter
     }
 
-    Button {
-        background: Rectangle { color: "transparent"}
-        contentItem: Text {
-            text: `${Math.floor(Pipewire.defaultAudioSource?.audio.volume * 100)}% `
-            color: muted? Theme.red1 : Theme.blue 
-            font.pointSize: 10.5
+    MouseArea {
+        implicitHeight: 40
+        implicitWidth: 40 * 1.5
+
+        hoverEnabled: true
+
+        Rectangle {
+            anchors.fill: parent
+            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
+            radius: height / 2.5
+
+            Text {
+                text: `${evenSrcVolume}% `
+                color: srcMuted? Theme.red1 : Theme.blue 
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pointSize: 10.5
+            }
+
+            Behavior on color {
+                ColorAnimation { duration: 200 }
+            }
         }
-        onClicked: pavu.running ? pavu.running = false : pavu.running = true    
+        onClicked: pavu.running = !pavu.running
+        onWheel: (wheel) => {
+            if (wheel.angleDelta.y > 0) {
+                Pipewire.defaultAudioSource.audio.volume += 0.01
+            } else {
+                Pipewire.defaultAudioSource.audio.volume -= 0.01
+            }
+        }
     }
+
 }
