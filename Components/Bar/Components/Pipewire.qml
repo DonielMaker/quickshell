@@ -9,7 +9,6 @@ import "root:/Appearance"
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
-    spacing: 10
 
     Process {
         id: pavu
@@ -31,7 +30,7 @@ Row {
         hoverEnabled: true
         anchors.verticalCenter: parent.verticalCenter
         implicitHeight: 40
-        implicitWidth: 60
+        implicitWidth: 80
 
         Rectangle {
             color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
@@ -70,7 +69,7 @@ Row {
     MouseArea {
         hoverEnabled: true
         implicitHeight: 40
-        implicitWidth: 60
+        implicitWidth: 80
         anchors.verticalCenter: parent.verticalCenter
 
         Rectangle {
