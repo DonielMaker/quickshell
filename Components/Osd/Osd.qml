@@ -64,19 +64,16 @@ Scope {
                 border.color: "#2f334c"
                 border.width: 2
 
-                RowLayout {
-                    anchors.fill: parent
+                MouseArea {
+                    enabled: false
+                    implicitHeight: 50
+                    implicitWidth: height
+                    Rectangle {
+                        color: "transparent"
+                        anchors.fill: parent
 
-                    Button {
-                        enabled: false
-                        implicitHeight: 50
-                        implicitWidth: implicitHeight
-                        background: Rectangle { color: "transparent" }
-                        contentItem: Text {
-                            height: parent.height
-                            width: parent.width
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
+                        Text {
+                            anchors.centerIn: parent
                             text: ""
                             color: muted ? Theme.red : Theme.blue
                             font.pointSize: 20
