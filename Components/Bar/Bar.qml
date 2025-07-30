@@ -20,7 +20,6 @@ Scope {
             screen: modelData
 
             WlrLayershell.layer: WlrLayer.Top
-            exclusiveZone: 40
 
             margins.top: 10
             anchors.top: true
@@ -51,7 +50,6 @@ Scope {
                 // Center (Only for Clock)
                 Text {
                     anchors.centerIn: parent
-                    anchors.verticalCenter: parent.verticalCenter
                     id: clock
                     font.pointSize: 10.5
                     color: Theme.fg
@@ -61,8 +59,9 @@ Scope {
                 // Right side
                 Row {
                     anchors.right: parent.right
-                    anchors.rightMargin: 20
+                    anchors.rightMargin: 15
                     anchors.verticalCenter: parent.verticalCenter
+                    spacing: 15
 
                     Battery {}
 
