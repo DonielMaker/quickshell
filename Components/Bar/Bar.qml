@@ -8,6 +8,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import "Components"
 import "root:/Appearance"
+import "root:/Widgets"
 
 Scope {
     Variants {
@@ -38,8 +39,8 @@ Scope {
                 // Left side
                 Row {
                     anchors.left: parent.left
-                    anchors.leftMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: 10
                     spacing: 15
 
                     PowerMenu {}
@@ -48,31 +49,22 @@ Scope {
                 }
 
                 // Center (Only for Clock)
-                Text {
-                    anchors.centerIn: parent
+                StyledText {
                     id: clock
-                    font.pointSize: 10.5
-                    color: Theme.fg
                     text: Time.time
+                    anchors.centerIn: parent
                 }
 
                 // Right side
                 Row {
                     anchors.right: parent.right
-                    anchors.rightMargin: 15
                     anchors.verticalCenter: parent.verticalCenter
-                    spacing: 15
+                    anchors.rightMargin: 15
 
                     Battery {}
 
-                    Text {
-                        visible: UPower.displayDevice.isLaptopBattery
-                        text: " | "
-                        color: Theme.fg
-                        font.pointSize: 10.5
-                    }
-
                     Pipewire {}
+
                 }
             }
         }
