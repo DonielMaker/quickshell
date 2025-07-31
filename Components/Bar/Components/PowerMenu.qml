@@ -30,8 +30,7 @@ Row {
             Text {
                 text: " "
                 color: Theme.red
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
                 font.pointSize: 12
             }
 
@@ -57,8 +56,7 @@ Row {
             Text {
                 text: " "
                 color: Theme.yellow
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.centerIn: parent
                 font.pointSize: 12
             }
 
