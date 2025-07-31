@@ -30,7 +30,7 @@ Row {
         hoverEnabled: true
         anchors.verticalCenter: parent.verticalCenter
         implicitHeight: 40
-        implicitWidth: 80
+        implicitWidth: 60
 
         Rectangle {
             color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
@@ -69,7 +69,7 @@ Row {
     MouseArea {
         hoverEnabled: true
         implicitHeight: 40
-        implicitWidth: 80
+        implicitWidth: 60
         anchors.verticalCenter: parent.verticalCenter
 
         Rectangle {
