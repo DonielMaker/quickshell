@@ -32,6 +32,7 @@ Row {
     PipewireButton {
         content: `${evenSinkVolume}%  ` 
         color: Theme.blue5
+        device: Pipewire.defaultAudioSink.audio
     }
 
     StyledText {
@@ -42,6 +43,7 @@ Row {
     PipewireButton {
         content: `${evenSrcVolume}% `
         color: srcMuted? Theme.red1 : Theme.blue 
+        device: Pipewire.defaultAudioSource.audio
     }
 
     // Definiton
@@ -50,6 +52,7 @@ Row {
 
         property string content
         property color color
+        property PwNodeAudio device
 
         hoverEnabled: true
         implicitHeight: 30
@@ -61,9 +64,9 @@ Row {
         // Make Audio Louder/Quieter by scrolling on the Widget
         onWheel: (wheel) => {
             if (wheel.angleDelta.y > 0) {
-                Pipewire.defaultAudioSource.audio.volume += 0.01
+                device.volume += 0.01
             } else {
-                Pipewire.defaultAudioSource.audio.volume -= 0.01
+                device.volume -= 0.01
             }
         }
 
