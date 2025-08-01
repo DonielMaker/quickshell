@@ -4,6 +4,9 @@ import Quickshell.Io
 import "root:Appearance"
 
 Row {
+    anchors.verticalCenter: parent.verticalCenter
+    spacing: 5
+
     Process {
         id: reboot 
         command: ["reboot"]
@@ -26,11 +29,12 @@ Row {
 
     component PowerButton: MouseArea {
         id: root
+        anchors.verticalCenter: parent.verticalCenter
 
         property string content
         property color color 
 
-        implicitHeight: 40
+        implicitHeight: 35
         implicitWidth: height
 
         onClicked: reboot.running = true

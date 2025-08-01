@@ -53,7 +53,7 @@ Row {
 
         hoverEnabled: true
         implicitHeight: 30
-        implicitWidth: 60
+        implicitWidth: 70
         anchors.verticalCenter: parent.verticalCenter
 
         onClicked: pavu.running = !pavu.running
