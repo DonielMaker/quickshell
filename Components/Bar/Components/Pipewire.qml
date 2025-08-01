@@ -5,9 +5,12 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "root:/Appearance"
+import "root:/Widgets"
 
 
 Row {
+    id: root
+
     anchors.verticalCenter: parent.verticalCenter
 
     Process {
@@ -26,71 +29,36 @@ Row {
     property int evenSrcVolume: Math.floor(Pipewire.defaultAudioSource?.audio.volume * 100)
 
     // The Widget
-    MouseArea {
-        hoverEnabled: true
-        anchors.verticalCenter: parent.verticalCenter
-        implicitHeight: 40
-        implicitWidth: 60
-
-        Rectangle {
-            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
-            radius: height / 2.5
-            anchors.fill: parent
-
-            Text {
-                text: `${evenSinkVolume}%  `
-                color: Theme.blue5
-                anchors.centerIn: parent
-                font.pointSize: 10.5
-            }
-
-            Behavior on color {
-                ColorAnimation { duration: 200 }
-            }
-        }
-
-        onClicked: pavu.running = !pavu.running
-        onWheel: (wheel) => {
-            if (wheel.angleDelta.y > 0) {
-                Pipewire.defaultAudioSink.audio.volume += 0.01
-            } else {
-                Pipewire.defaultAudioSink.audio.volume -= 0.01
-            }
-        }
+    PipewireButton {
+        content: `${evenSinkVolume}%  ` 
+        color: Theme.blue5
     }
 
-    Text {
+    StyledText {
         text: " | "
-        color: Theme.fg
-        font.pointSize: 10.5
         anchors.verticalCenter: parent.verticalCenter
     }
 
-    MouseArea {
+    PipewireButton {
+        content: `${evenSrcVolume}% `
+        color: srcMuted? Theme.red1 : Theme.blue 
+    }
+
+    // Definiton
+    component PipewireButton: MouseArea {
+        id: root
+
+        property string content
+        property color color
+
         hoverEnabled: true
-        implicitHeight: 40
+        implicitHeight: 30
         implicitWidth: 60
         anchors.verticalCenter: parent.verticalCenter
 
-        Rectangle {
-            anchors.fill: parent
-            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
-            implicitHeight: 40
-            implicitWidth: 60
-            radius: height / 2.5
-
-            Text {
-                text: `${evenSrcVolume}% `
-                color: srcMuted? Theme.red1 : Theme.blue 
-                anchors.centerIn: parent
-                font.pointSize: 10.5
-            }
-
-            Behavior on color {
-                ColorAnimation { duration: 200 }
-            }
-        }
         onClicked: pavu.running = !pavu.running
+
+        // Make Audio Louder/Quieter by scrolling on the Widget
         onWheel: (wheel) => {
             if (wheel.angleDelta.y > 0) {
                 Pipewire.defaultAudioSource.audio.volume += 0.01
@@ -98,6 +66,21 @@ Row {
                 Pipewire.defaultAudioSource.audio.volume -= 0.01
             }
         }
-    }
 
+        Rectangle {
+            anchors.fill: parent
+            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
+            radius: height / 2.5
+
+            StyledText {
+                text: content
+                color: root.color
+                anchors.centerIn: parent
+            }
+
+            Behavior on color {
+                ColorAnimation { duration: 200 }
+            }
+        }
+    }
 }

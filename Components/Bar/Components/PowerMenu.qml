@@ -14,33 +14,22 @@ Row {
         command: ["shutdown", "now"]
     }
 
-    MouseArea {
-        implicitHeight: 40
-        implicitWidth: height
-
-        onClicked: shutdown.running = true
-
-        hoverEnabled: true
-
-        Rectangle {
-            anchors.fill: parent
-            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
-            radius: height / 2
-
-            Text {
-                text: " "
-                color: Theme.red
-                anchors.centerIn: parent
-                font.pointSize: 12
-            }
-
-            Behavior on color {
-                ColorAnimation { duration: 200 }
-            }
-        }
+    PowerButton {
+        content: " "
+        color: Theme.red
     }
 
-    MouseArea {
+    PowerButton {
+        content: " "
+        color: Theme.yellow
+    }
+
+    component PowerButton: MouseArea {
+        id: root
+
+        property string content
+        property color color 
+
         implicitHeight: 40
         implicitWidth: height
 
@@ -54,8 +43,8 @@ Row {
             radius: height / 2
 
             Text {
-                text: " "
-                color: Theme.yellow
+                text: content
+                color: root.color
                 anchors.centerIn: parent
                 font.pointSize: 12
             }
