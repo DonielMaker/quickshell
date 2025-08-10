@@ -8,7 +8,9 @@ import "root:Appearance"
 import "root:Widgets"
 
 Scope {
+    id: root
     property bool mixerEnabled
+    property QsWindow window
 
     PwObjectTracker {
         objects: Pipewire.nodes.values
@@ -17,15 +19,11 @@ Scope {
     LazyLoader {
         active: mixerEnabled
 
-        PanelWindow {
-            anchors.right: true
-            anchors.top: true
-
-            WlrLayershell.layer: WlrLayer.Overlay
-            exclusiveZone: 0
-
-            margins.right: screen.width / 20
-            margins.top: 10
+        PopupWindow {
+            anchor.window: bar
+            anchor.rect.x: bar.width - width
+            anchor.rect.y: bar.height + 20
+            visible: true
 
             implicitWidth: 600
             implicitHeight: 400

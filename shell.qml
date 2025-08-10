@@ -7,13 +7,6 @@ import "Components/Osd"
 import "Components/Mixer"
 
 ShellRoot {
-    id: root
-    signal toggleMixer
-    property bool mixerEnabled: false
-
-    onToggleMixer: mixerEnabled = !mixerEnabled
-
-    Bar {onToggleMixer: root.toggleMixer()}
+    Bar {}
     Osd {}
-    Mixer {mixerEnabled: root.mixerEnabled}
 }

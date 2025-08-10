@@ -3,17 +3,17 @@ import Quickshell.Widgets
 import Quickshell.Wayland
 import Quickshell.Services.UPower
 import Quickshell.Services.SystemTray
+import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "Components"
-import "root:/Appearance"
-import "root:/Widgets"
+import "root:Components/Mixer"
+import "root:Appearance"
+import "root:Widgets"
 
 Scope {
     id: root
-
-    signal toggleMixer
 
     Variants {
         model: Quickshell.screens
@@ -69,7 +69,12 @@ Scope {
 
                     Battery {}
 
-                    Pipewire {onToggleMixer: root.toggleMixer()}
+                    Pipewire {onToggleMixer: mixer.mixerEnabled = !mixer.mixerEnabled}
+                }
+
+                Mixer {
+                    id: mixer
+                    window: bar
                 }
             }
         }
