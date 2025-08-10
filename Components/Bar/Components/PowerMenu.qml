@@ -20,24 +20,23 @@ Row {
     PowerButton {
         content: " "
         color: Theme.red
+        onClicked: shutdown.running = true
     }
 
     PowerButton {
         content: " "
         color: Theme.yellow
+        onClicked: reboot.running = true
     }
 
     component PowerButton: MouseArea {
         id: root
-        anchors.verticalCenter: parent.verticalCenter
 
         property string content
         property color color 
 
         implicitHeight: 35
         implicitWidth: height
-
-        onClicked: reboot.running = true
 
         hoverEnabled: true
 
