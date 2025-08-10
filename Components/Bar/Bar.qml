@@ -11,6 +11,10 @@ import "root:/Appearance"
 import "root:/Widgets"
 
 Scope {
+    id: root
+
+    signal toggleMixer
+
     Variants {
         model: Quickshell.screens
 
@@ -61,10 +65,11 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.rightMargin: 15
 
+                    TrayTest1 {}
+
                     Battery {}
 
-                    Pipewire {}
-
+                    Pipewire {onToggleMixer: root.toggleMixer()}
                 }
             }
         }

@@ -9,7 +9,7 @@ import "root:/Widgets"
 
 
 Row {
-    id: root
+    signal toggleMixer()
 
     anchors.verticalCenter: parent.verticalCenter
 
@@ -59,7 +59,8 @@ Row {
         implicitWidth: 70
         anchors.verticalCenter: parent.verticalCenter
 
-        onClicked: pavu.running = !pavu.running
+        // onClicked: pavu.running = !pavu.running
+        onClicked: toggleMixer()
 
         // Make Audio Louder/Quieter by scrolling on the Widget
         onWheel: (wheel) => {
