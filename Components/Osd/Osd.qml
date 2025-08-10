@@ -64,21 +64,11 @@ Scope {
                 border.color: "#2f334c"
                 border.width: 2
 
-                MouseArea {
-                    enabled: false
-                    implicitHeight: 50
-                    implicitWidth: height
-                    Rectangle {
-                        color: "transparent"
-                        anchors.fill: parent
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: ""
-                            color: muted ? Theme.red : Theme.blue
-                            font.pointSize: 20
-                        }
-                    }
+                Text {
+                    anchors.centerIn: parent
+                    text: ""
+                    color: muted ? Theme.red : Theme.blue
+                    font.pointSize: 20
                 }
 			}
 		}
