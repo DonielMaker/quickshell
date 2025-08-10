@@ -5,23 +5,48 @@ import "root:/Appearance"
 
 Rectangle {
     implicitHeight: 40
-    implicitWidth: (4 + 8) * 10 // (Spacing + Width) * Amount
-    color: "transparent"
+    implicitWidth: (4 + 8) * 10 + 10 // (Spacing + Width) * Amount + Margins
+    color: 'transparent'
 
     Row {
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 4
+        anchors.fill: parent
+        spacing: -3
 
         Repeater {
             model: 10
 
-            Rectangle {
+            MouseArea {
+                anchors.verticalCenter: parent.verticalCenter
+                id: workspace
+                implicitWidth: 16
+                implicitHeight: 16
+                hoverEnabled: true
+
+                property real dotSize: 8
                 property bool activeWs: Hyprland.focusedWorkspace?.id == modelData + 1 
 
-                implicitHeight: 8
-                implicitWidth: 8 
-                radius: height / 2
-                color: activeWs ? Theme.fg : Theme.bg_highlight
+                onEntered: dotSize = 16
+
+                onExited: dotSize = 8
+
+                onClicked: Hyprland.dispatch("workspace " + (modelData + 1))
+
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: dotSize
+                    height: dotSize
+                    radius: height / 2
+                    opacity: activeWs ? 1 : 0.2
+                    // color: activeWs ? Theme.fg : Theme.bg_highlight
+                    color: Theme.fg
+
+                    Behavior on width {
+                        NumberAnimation { duration: 100 }
+                    }
+                    Behavior on height {
+                        NumberAnimation { duration: 100 }
+                    }
+                }
             }
         }
     }
