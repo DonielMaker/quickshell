@@ -56,7 +56,6 @@ Scope {
                                     values: Pipewire.nodes.values.filter(node => node.isStream && node.isSink)
                                 }
 
-
                                 // This is an individual Item
                                 Item {
                                     implicitHeight: 40
@@ -80,9 +79,6 @@ Scope {
                                                 } else {
                                                     Quickshell.iconPath("audio-volume-high")
                                                 }
-                                            }
-                                            Component.onCompleted: {
-                                                console.log(Quickshell.iconPath("audio-volume-high"))
                                             }
                                         }
 
