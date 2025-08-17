@@ -56,53 +56,65 @@ Scope {
 
                                 // This is an individual Item
                                 Item {
-                                    implicitHeight: 40
+                                    implicitHeight: 40 + description.height
                                     implicitWidth: shell.width
 
-                                    Row {
+                                    Column {
                                         anchors.fill: parent
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        padding: 5
                                         spacing: 5
 
-                                        IconImage {
-                                            id: icon
+                                        Row {
+                                            width: parent.width
+                                            padding: 5
+                                            spacing: 5
 
-                                            implicitSize: 20
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            source: {
-                                                if (Quickshell.iconPath(modelData.properties["application.icon-name"]) != "image://icon/") {
-                                                    Quickshell.iconPath(modelData.properties["application.icon-name"])
-                                                    // modelData.properties["application.icon-name"]
-                                                } else {
-                                                    Quickshell.iconPath("audio-volume-high")
+                                            IconImage {
+                                                id: icon
+
+                                                implicitSize: 20
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                source: {
+                                                    if (Quickshell.iconPath(modelData.properties["application.icon-name"]) != "image://icon/") {
+                                                        Quickshell.iconPath(modelData.properties["application.icon-name"])
+                                                        // modelData.properties["application.icon-name"]
+                                                    } else {
+                                                        Quickshell.iconPath("audio-volume-high")
+                                                    }
+                                                }
+                                            }
+
+                                            StyledText {
+                                                id: name
+
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                text: modelData.name
+                                            }
+
+                                            StyledText {
+                                                id: volume
+
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                text: Math.floor(modelData.audio.volume * 100)
+                                                width: this.font.pointSize * 3
+                                            }
+
+                                            Slider {
+                                                anchors.verticalCenter: parent.verticalCenter
+                                                width: (parent.width - x) * 0.95
+                                                value: modelData.audio.volume
+
+                                                onMoved: {
+                                                    modelData.audio.volume = value
                                                 }
                                             }
                                         }
 
                                         StyledText {
-                                            id: name
-
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            text: modelData.name
-                                        }
-
-                                        StyledText {
-                                            id: volume
-
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            text: Math.floor(modelData.audio.volume * 100)
-                                            width: this.font.pointSize * 3
-                                        }
-
-                                        Slider {
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            width: (parent.width - x) * 0.95
-                                            value: modelData.audio.volume
-
-                                            onMoved: {
-                                                modelData.audio.volume = value
-                                            }
+                                            id: description
+                                            width: shell.width
+                                            text: modelData.properties["media.name"]
+                                            elide: Text.ElideLeft
+                                            wrapMode: Text.WordWrap
                                         }
                                     }
 
