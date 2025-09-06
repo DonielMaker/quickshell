@@ -7,11 +7,12 @@ import "root:/Widgets"
 
 Row {
     anchors.verticalCenter: parent.verticalCenter
+    property int batteryPercentage: Math.floor(UPower.displayDevice.percentage * 100)
     spacing: 5
 
     StyledText {
         visible: UPower.displayDevice.isLaptopBattery
-        text: `${UPower.displayDevice.percentage * 100}%` + (UPower.onBattery ? " 󰁹" : " 󰂄")
+        text: `${batteryPercentage}%` + (UPower.onBattery ? " 󰁹" : " 󰂄")
         color: Theme.green1
     }
 
