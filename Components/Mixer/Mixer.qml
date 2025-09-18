@@ -74,11 +74,10 @@ Scope {
                                                 implicitSize: 20
                                                 anchors.verticalCenter: parent.verticalCenter
                                                 source: {
-                                                    if (Quickshell.iconPath(modelData.properties["application.icon-name"]) != "image://icon/") {
-                                                        Quickshell.iconPath(modelData.properties["application.icon-name"])
-                                                        // modelData.properties["application.icon-name"]
+                                                    if (modelData.properties["application.icon-name"] == undefined) {
+                                                        Quickshell.iconPath(modelData.name.toLowerCase(), "audio-volume-high") 
                                                     } else {
-                                                        Quickshell.iconPath("audio-volume-high")
+                                                        Quickshell.iconPath(modelData.properties["application.icon-name"], "audio-volume-high")
                                                     }
                                                 }
                                             }
