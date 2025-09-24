@@ -70,7 +70,7 @@ Scope {
 
                     Battery {}
 
-                    Pipewire {onToggleMixer: mixer.mixerEnabled = !mixer.mixerEnabled}
+                    Pipewire {}
                 }
 
                 Mixer {

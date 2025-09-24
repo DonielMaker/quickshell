@@ -6,10 +6,10 @@ import QtQuick
 import QtQuick.Controls
 import qs.Appearance
 import qs.Widgets
+import qs.Cache
 
 Scope {
     id: root
-    property bool mixerEnabled
     property QsWindow window
 
     PwObjectTracker {
@@ -17,30 +17,34 @@ Scope {
     }
 
     LazyLoader {
-        active: mixerEnabled
+        active: Cache.mixerEnabled
 
-        PopupWindow {
-            anchor.window: bar
-            anchor.rect.x: bar.width - width
-            anchor.rect.y: bar.height + 20
+        PanelWindow {
             visible: true
 
-            implicitWidth: 600
-            implicitHeight: 400
+            anchors {
+                top: true
+                bottom: true
+                right: true
+                left: true
+            }
 
             color: 'transparent'
 
             Rectangle {
+                x: 1920 - (1920 * 0.05) - width
+                y: 20
                 color: Theme.bg
                 border.color: Theme.bg_highlight
                 border.width: 2
                 radius: 15
-                anchors.fill: parent
+                implicitWidth: 600
+                implicitHeight: 400
 
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
-                    onExited: root.mixerEnabled = !root.mixerEnabled
+                    onExited: Cache.mixerEnabled = !Cache.mixerEnabled
 
                     ScrollView {
                         id: shell

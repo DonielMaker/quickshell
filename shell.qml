@@ -2,9 +2,9 @@
 // @ pragma IconTheme Papirus
 import Quickshell
 import QtQuick
-import "Components/Bar"
-import "Components/Osd"
-import "Components/Mixer"
+import qs.Components.Bar
+import qs.Components.Osd
+import qs.Components.Mixer
 
 ShellRoot {
     Bar {}
