@@ -1,9 +1,8 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.UPower
-
-import "root:/Appearance"
-import "root:/Widgets"
+import qs.Appearance
+import qs.Widgets
 
 Row {
     anchors.verticalCenter: parent.verticalCenter

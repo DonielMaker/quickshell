@@ -1,5 +1,5 @@
-import "root:/Widgets"
-import "root:/Appearance"
+import qs.Appearance
+import qs.Widgets
 import QtQuick
 
 Text {

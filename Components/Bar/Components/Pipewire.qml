@@ -4,8 +4,8 @@ import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "root:/Appearance"
-import "root:/Widgets"
+import qs.Appearance
+import qs.Widgets
 
 
 Row {

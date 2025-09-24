@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import Quickshell.Io
-import "root:Appearance"
+import qs.Appearance
+
 
 Row {
     anchors.verticalCenter: parent.verticalCenter

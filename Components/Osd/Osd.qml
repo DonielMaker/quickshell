@@ -6,7 +6,8 @@ import Quickshell.Services.Pipewire
 import Quickshell.Widgets
 import Quickshell.Wayland
 import QtQuick.Effects
-import "root:/Appearance"
+import qs.Appearance
+import qs.Widgets
 
 Scope {
 	id: root

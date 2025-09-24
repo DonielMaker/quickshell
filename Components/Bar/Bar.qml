@@ -7,10 +7,11 @@ import Quickshell.Services.Pipewire
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import "Components"
-import "root:Components/Mixer"
-import "root:Appearance"
-import "root:Widgets"
+import "./Components"
+import qs.Components.Mixer
+import qs.Appearance
+import qs.Widgets
+
 
 Scope {
     id: root

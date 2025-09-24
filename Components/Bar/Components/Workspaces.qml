@@ -1,7 +1,7 @@
 import Quickshell
 import Quickshell.Hyprland
 import QtQuick
-import "root:/Appearance"
+import qs.Appearance
 
 Rectangle {
     implicitHeight: 40

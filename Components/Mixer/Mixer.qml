@@ -4,8 +4,8 @@ import Quickshell.Services.Pipewire
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Controls
-import "root:Appearance"
-import "root:Widgets"
+import qs.Appearance
+import qs.Widgets
 
 Scope {
     id: root
