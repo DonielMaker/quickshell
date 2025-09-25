@@ -72,11 +72,6 @@ Scope {
 
                     Pipewire {}
                 }
-
-                Mixer {
-                    id: mixer
-                    window: bar
-                }
             }
         }
     }

@@ -9,4 +9,5 @@ import qs.Components.Mixer
 ShellRoot {
     Bar {}
     Osd {}
+    Mixer {}
 }

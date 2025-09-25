@@ -5,6 +5,7 @@ import qs.Appearance
 import qs.Widgets
 
 Row {
+    visible: UPower.displayDevice.isLaptopBattery
     anchors.verticalCenter: parent.verticalCenter
     property int batteryPercentage: Math.floor(UPower.displayDevice.percentage * 100)
     spacing: 5
@@ -16,7 +17,6 @@ Row {
     }
 
     StyledText {
-        visible: UPower.displayDevice.isLaptopBattery
         text: " | "
     }
 }
