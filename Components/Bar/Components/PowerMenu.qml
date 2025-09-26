@@ -20,42 +20,46 @@ Row {
 
     PowerButton {
         content: " "
-        color: Theme.red
+        textColor: Theme.red
         onClicked: shutdown.running = true
     }
 
     PowerButton {
         content: " "
-        color: Theme.yellow
+        textColor: Theme.yellow
         onClicked: reboot.running = true
     }
 
-    component PowerButton: MouseArea {
+    component PowerButton: Rectangle {
         id: root
 
         property string content
-        property color color 
+        property color textColor 
+        signal clicked()
 
         implicitHeight: 35
         implicitWidth: height
 
-        hoverEnabled: true
+        color: hoverHandler.hovered ? Theme.bg_highlight : "#002f334c"
+        radius: height / 2
 
-        Rectangle {
-            anchors.fill: parent
-            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
-            radius: height / 2
+        Text {
+            text: content
+            color: root.textColor
+            anchors.centerIn: parent
+            font.pointSize: 12
+        }
 
-            Text {
-                text: content
-                color: root.color
-                anchors.centerIn: parent
-                font.pointSize: 12
-            }
+        TapHandler {
+            onTapped: root.clicked()
+        }
 
-            Behavior on color {
-                ColorAnimation { duration: 200 }
-            }
+        HoverHandler {
+            id: hoverHandler
+        }
+
+        Behavior on color {
+            ColorAnimation { duration: 200 }
         }
     }
 }

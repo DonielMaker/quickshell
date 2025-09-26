@@ -30,7 +30,7 @@ Row {
     // The Widget
     PipewireButton {
         content: `${evenSinkVolume}%  ` 
-        color: Theme.blue5
+        textColor: Theme.blue5
         device: Pipewire.defaultAudioSink.audio
     }
 
@@ -41,49 +41,55 @@ Row {
 
     PipewireButton {
         content: `${evenSrcVolume}% `
-        color: srcMuted? Theme.red1 : Theme.blue 
+        textColor: srcMuted? Theme.red1 : Theme.blue 
         device: Pipewire.defaultAudioSource.audio
     }
 
     // Definiton
-    component PipewireButton: MouseArea {
+    component PipewireButton: Rectangle {
         id: root
 
         property string content
-        property color color
+        property color textColor
         property PwNodeAudio device
 
-        hoverEnabled: true
+        color: hoverHandler.hovered ? Theme.bg_highlight : "#002f334c"
+        radius: height / 2.5
+
         implicitHeight: 30
         implicitWidth: 70
         anchors.verticalCenter: parent.verticalCenter
 
-        // onClicked: pavu.running = !pavu.running
-        onClicked: SystemState.showMixer = !SystemState.showMixer
+        StyledText {
+            text: content
+            color: root.textColor
+            anchors.centerIn: parent
+        }
 
-        // Make Audio Louder/Quieter by scrolling on the Widget
-        onWheel: (wheel) => {
-            if (wheel.angleDelta.y > 0) {
-                device.volume += 0.01
-            } else {
-                device.volume -= 0.01
+        HoverHandler {
+            id: hoverHandler
+        }
+
+        TapHandler {
+            id: tapHandler
+            onTapped: SystemState.showMixer = !SystemState.showMixer
+        }
+
+        WheelHandler {
+            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+            // Make Audio Louder/Quieter by scrolling on the Widget
+            onWheel: (wheel) => {
+                console.log("wheel")
+                if (wheel.angleDelta.y > 0) {
+                    root.device.volume += 0.01
+                } else {
+                    root.device.volume -= 0.01
+                }
             }
         }
 
-        Rectangle {
-            anchors.fill: parent
-            color: parent.containsMouse ? Theme.bg_highlight : "#002f334c"
-            radius: height / 2.5
-
-            StyledText {
-                text: content
-                color: root.color
-                anchors.centerIn: parent
-            }
-
-            Behavior on color {
-                ColorAnimation { duration: 200 }
-            }
+        Behavior on color {
+            ColorAnimation { duration: 200 }
         }
     }
 }
