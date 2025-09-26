@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import qs.Appearance
 import qs.Widgets
-import qs.Cache
+import qs.State
 
 
 Row {
@@ -59,7 +59,7 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
 
         // onClicked: pavu.running = !pavu.running
-        onClicked: Cache.mixerEnabled = !Cache.mixerEnabled
+        onClicked: SystemState.showMixer = !SystemState.showMixer
 
         // Make Audio Louder/Quieter by scrolling on the Widget
         onWheel: (wheel) => {

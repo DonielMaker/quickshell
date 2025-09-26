@@ -6,22 +6,20 @@ import QtQuick
 import QtQuick.Controls
 import qs.Appearance
 import qs.Widgets
-import qs.Cache
+import qs.State
 
 Scope {
     id: root
-    property QsWindow window
+    property ShellScreen screen: QsWindow.window?.screen
 
     PwObjectTracker {
         objects: Pipewire.nodes.values
     }
 
     LazyLoader {
-        active: Cache.mixerEnabled
+        active: SystemState.showMixer
 
         PanelWindow {
-            visible: true
-
             anchors {
                 top: true
                 bottom: true
@@ -32,7 +30,7 @@ Scope {
             color: 'transparent'
 
             Rectangle {
-                x: 1920 - (1920 * 0.05) - width
+                x: screen.width - (screen.width * 0.05) - width
                 y: 20
                 color: Theme.bg
                 border.color: Theme.bg_highlight
@@ -44,7 +42,7 @@ Scope {
                 MouseArea {
                     anchors.fill: parent
                     hoverEnabled: true
-                    onExited: Cache.mixerEnabled = !Cache.mixerEnabled
+                    onExited: SystemState.showMixer = !SystemState.showMixer
 
                     ScrollView {
                         id: shell
