@@ -9,6 +9,7 @@ Row {
     anchors.verticalCenter: parent.verticalCenter
     property int batteryPercentage: Math.floor(UPower.displayDevice.percentage * 100)
     spacing: 5
+    leftPadding: 10
 
     StyledText {
         visible: UPower.displayDevice.isLaptopBattery
