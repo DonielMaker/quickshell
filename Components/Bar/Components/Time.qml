@@ -6,22 +6,10 @@ import QtQuick
 
 Singleton {
     id: root
-    property string time
+    property string time: Qt.formatDateTime(clock.date, "ddd dd MMM, hh:mm:ss")
 
-    Process {
-        id: dateProc
-        command: ["date", "+%a %d %b, %H:%M:%S"]
-        running: true
-
-        stdout: SplitParser {
-            onRead: data => root.time = data
-        }
-    }
-
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: dateProc.running = true
+    SystemClock {
+        id: clock
+        precision: SystemClock.Seconds
     }
 }
