@@ -66,7 +66,7 @@ Scope {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.rightMargin: 15
 
-                    // TrayTest1 {}
+                    Tray {}
 
                     Battery {}
 
