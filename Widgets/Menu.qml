@@ -5,85 +5,116 @@ import QtQuick.Controls
 import qs.Appearance
 
 Scope {
-    PanelWindow {
-        implicitHeight: 600
-        implicitWidth: 500
-        focusable: true
-        visible: false
-        color: 'transparent'
+    LazyLoader {
+        id: root
+        active: true
 
-        Rectangle {
-            id: rct
-            color: Theme.bg
-            anchors.fill: parent
-            border.width: 2
-            border.color: Theme.bg_highlight
-            radius: 15
+        PanelWindow {
+            implicitHeight: 600
+            implicitWidth: 500
+            focusable: true
+            color: 'transparent'
 
+            Rectangle {
+                id: rct
+                color: Theme.bg
+                anchors.fill: parent
+                border.width: 2
+                border.color: Theme.bg_highlight
+                radius: 15
 
-            ListView {
-                id: lv
-                implicitHeight: 40 * DesktopEntries.applications.values.filter(entry => !entry.noDisplay | !entry.runInTerminal).length + 120
-                // implicitHeight: 2000
-                implicitWidth: parent.width
-                focus: true
-                spacing: 20
+                ListView {
+                    id: lv
+                    anchors.fill: parent
+                    spacing: 10
 
-                header: TextField {
-                    height: 40
-                    width: parent.width
-                    background: Rectangle { color: 'transparent' }
-                    placeholderText: "Search..."
-                    placeholderTextColor: Theme.fg
-                }
-
-                keyNavigationEnabled: true
-
-                highlightMoveDuration: 0
-                highlightResizeDuration: 0
-                highlightFollowsCurrentItem: true
-                preferredHighlightBegin: (lv.height / 2) - 40
-                preferredHighlightEnd:  (lv.height / 2) + 40
-                highlight: Rectangle {
-                    radius: 10
-                    color: Theme.blue
-                }
-
-                model: ScriptModel {
-                    values: DesktopEntries.applications.values.filter(entry => !entry.noDisplay | !entry.runInTerminal)
-                } 
-
-                delegate: Column {
-                    padding: 5
-
-                    HoverHandler {
-                        id: hvr
+                    header: TextField {
+                        id: txtfld
+                        height: 60
+                        width: lv.width
+                        background: Rectangle { color: 'transparent' }
+                        placeholderText: "Search..."
+                        placeholderTextColor: Theme.fg
+                        color: Theme.fg
+                        Keys.forwardTo: [txtfld]
+                        focus: true
+                        Component.onCompleted: forceActiveFocus()
                     }
 
-                    Row {
-                        spacing: 5
+                    Keys.onPressed: (event) => {
+                        if (event.key == Qt.Key_Return) {
+                            model.values[currentIndex].execute()
+                            root.active = false
+                            event.accepted = true
+                        }
+                        if (event.key == Qt.Key_Escape) {
+                            root.active = false
+                            event.accepted = true
+                        }
+                    }
 
-                        IconImage {
-                            implicitSize: 30
-                            source: Quickshell.iconPath(modelData.icon)
+                    keyNavigationEnabled: true
+
+                    highlightMoveDuration: 0
+                    highlightResizeDuration: 0
+                    highlightFollowsCurrentItem: true
+                    highlight: Rectangle {
+                        radius: 10
+                        color: Theme.blue
+                    }
+
+                    model: ScriptModel {
+                        values: DesktopEntries.applications.values.filter(entry => !entry.noDisplay | !entry.runInTerminal)
+                    } 
+
+                    delegate: Column {
+                        width: lv.width
+                        padding: 10
+
+                        HoverHandler {
+                            id: hvr
+                        }
+
+                        TapHandler {
+                            id: tap
+                            onTapped: {
+                                modelData.execute()
+                                root.active = false
+                            }
+                        }
+
+                        Row {
+                            spacing: 5
+
+                            IconImage {
+                                implicitSize: 30
+                                source: Quickshell.iconPath(modelData.icon, modelData.name.toLowerCase())
+                                // if (modelData.icon == undefined) {
+                                //     Quickshell.iconPath(modelData.name.toLowerCase(), "application-all-symbolic") 
+                                // } else {
+                                //     Quickshell.iconPath(modelData.icon, "application-all-symbolic")
+                                // }
+
+                            }
+
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: modelData.name
+                                color: Theme.fg
+                                font.pointSize: 16
+                            }
                         }
 
                         Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: modelData.name
+                            text: modelData.comment ? modelData.comment : modelData.genericName
                             color: Theme.fg
-                            font.pointSize: 16
                         }
-                    }
 
-                    Text {
-                        text: modelData.comment? modelData.comment : modelData.genericName
-                        color: Theme.fg
-                    }
-
-                    Rectangle {
-                        implicitWidth: shell.width
-                        implicitHeight: 10
+                        Rectangle {
+                            height: 3
+                            width: lv.width - 20
+                            color: Theme.bg_highlight
+                        }
                     }
                 }
             }
