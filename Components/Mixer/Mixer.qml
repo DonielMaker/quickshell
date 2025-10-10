@@ -36,97 +36,97 @@ Scope {
                 border.color: Theme.bg_highlight
                 border.width: 2
                 radius: 15
-                implicitWidth: 600
-                implicitHeight: 400
+                implicitWidth: 400
+                implicitHeight: Math.min(content.height + 20, 260)
 
-                MouseArea {
+                HoverHandler {
+                    onHoveredChanged: if (!hovered) SystemState.showMixer = !SystemState.showMixer
+                }
+
+                ScrollView {
+                    id: shell
+                    anchors.margins: 10
                     anchors.fill: parent
-                    hoverEnabled: true
-                    onExited: SystemState.showMixer = !SystemState.showMixer
 
-                    ScrollView {
-                        id: shell
-                        anchors.margins: 10
-                        anchors.fill: parent
-                        Column {
-                            spacing: 5
+                    Column {
+                        id: content
+                        spacing: 5
 
-                            Repeater {
-                                model: ScriptModel {
-                                    values: Pipewire.nodes.values.filter(node => node.isStream && node.isSink)
-                                }
+                        Repeater {
+                            model: ScriptModel {
+                                values: Pipewire.nodes.values.filter(node => node.isStream && node.isSink)
+                            }
 
-                                // This is an individual Item
-                                Item {
-                                    implicitHeight: 40 + description.height
-                                    implicitWidth: shell.width
+                            // This is an individual Item
+                            Item {
+                                implicitHeight: 40 + description.height
+                                implicitWidth: shell.width
 
-                                    Column {
-                                        anchors.fill: parent
+                                Column {
+                                    anchors.fill: parent
+                                    spacing: 5
+
+                                    Row {
+                                        width: shell.width
+                                        padding: 5
                                         spacing: 5
 
-                                        Row {
-                                            width: parent.width
-                                            padding: 5
-                                            spacing: 5
+                                        IconImage {
+                                            id: icon
 
-                                            IconImage {
-                                                id: icon
-
-                                                implicitSize: 20
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                source: {
-                                                    if (modelData.properties["application.icon-name"] == undefined) {
-                                                        Quickshell.iconPath(modelData.name.toLowerCase(), "audio-volume-high") 
-                                                    } else {
-                                                        Quickshell.iconPath(modelData.properties["application.icon-name"], "audio-volume-high")
-                                                    }
-                                                }
-                                            }
-
-                                            StyledText {
-                                                id: name
-
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                text: modelData.name
-                                            }
-
-                                            StyledText {
-                                                id: volume
-
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                text: Math.floor(modelData.audio.volume * 100)
-                                                width: this.font.pointSize * 3
-                                            }
-
-                                            Slider {
-                                                anchors.verticalCenter: parent.verticalCenter
-                                                width: (parent.width - x) * 0.95
-                                                value: modelData.audio.volume
-
-                                                onMoved: {
-                                                    modelData.audio.volume = value
+                                            implicitSize: 20
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            source: {
+                                                if (modelData.properties["application.icon-name"] == undefined) {
+                                                    Quickshell.iconPath(modelData.name.toLowerCase(), "audio-volume-high") 
+                                                } else {
+                                                    Quickshell.iconPath(modelData.properties["application.icon-name"], "audio-volume-high")
                                                 }
                                             }
                                         }
 
                                         StyledText {
-                                            id: description
-                                            width: shell.width
-                                            text: modelData.properties["media.name"]
-                                            elide: Text.ElideLeft
-                                            wrapMode: Text.WordWrap
+                                            id: name
+
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            text: modelData.name
+                                        }
+
+                                        StyledText {
+                                            id: volume
+
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            text: Math.floor(modelData.audio.volume * 100)
+                                            width: this.font.pointSize * 3
+                                        }
+
+                                        Slider {
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            width: (parent.width - x) * 0.95
+                                            value: modelData.audio.volume
+
+                                            onMoved: {
+                                                modelData.audio.volume = value
+                                            }
                                         }
                                     }
 
-                                    Rectangle {
-                                        anchors.top: parent.bottom
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        implicitHeight: 1
-                                        implicitWidth: shell.width
-                                        opacity: 0.3
-                                        color: Theme.fg
+                                    StyledText {
+                                        id: description
+                                        width: shell.width
+                                        text: modelData.properties["media.name"]
+                                        elide: Text.ElideLeft
+                                        wrapMode: Text.WordWrap
                                     }
+                                }
+
+                                Rectangle {
+                                    anchors.top: parent.bottom
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    implicitHeight: 1
+                                    implicitWidth: shell.width
+                                    opacity: 0.3
+                                    color: Theme.fg
                                 }
                             }
                         }
