@@ -1,4 +1,3 @@
-// Maybe change name?
 pragma Singleton
 
 import Quickshell

@@ -11,5 +11,5 @@ ShellRoot {
     Bar {}
     Osd {}
     Mixer {}
-    AppLauncher {}
+    // Menu {}
 }
