@@ -54,7 +54,7 @@ Scope {
                 }
 
                 // Center (Only for Clock)
-                StyledText {
+                FancyText {
                     id: clock
                     text: Time.time
                     anchors.centerIn: parent

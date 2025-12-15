@@ -11,13 +11,13 @@ Row {
     spacing: 5
     leftPadding: 10
 
-    StyledText {
+    FancyText {
         visible: UPower.displayDevice.isLaptopBattery
         text: `${batteryPercentage}%` + (UPower.onBattery ? " 󰁹" : " 󰂄")
         color: Theme.green1
     }
 
-    StyledText {
+    FancyText {
         text: " | "
     }
 }

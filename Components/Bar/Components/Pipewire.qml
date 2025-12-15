@@ -34,7 +34,7 @@ Row {
         device: Pipewire.defaultAudioSink.audio
     }
 
-    StyledText {
+    FancyText {
         text: " | "
         anchors.verticalCenter: parent.verticalCenter
     }
@@ -60,7 +60,7 @@ Row {
         implicitWidth: 70
         anchors.verticalCenter: parent.verticalCenter
 
-        StyledText {
+        FancyText {
             text: content
             color: root.textColor
             anchors.centerIn: parent
@@ -72,7 +72,7 @@ Row {
 
         TapHandler {
             id: tapHandler
-            onTapped: SystemState.showMixer = !SystemState.showMixer
+            onTapped: MixerState.showMixer = !MixerState.showMixer
         }
 
         WheelHandler {

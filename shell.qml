@@ -5,7 +5,7 @@ import QtQuick
 import qs.Components.Bar
 import qs.Components.Osd
 import qs.Components.Mixer
-import qs.Components.AppLauncher
+import qs.Widgets
 
 ShellRoot {
     Bar {}
