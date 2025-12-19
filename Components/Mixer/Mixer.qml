@@ -94,14 +94,14 @@ Scope {
                                                 : Quickshell.iconPath(itemContent.properties["application.icon-name"], "audio-volume-high")
                                         }
 
-                                        StyledText {
+                                        FancyText {
                                             id: name
 
                                             anchors.verticalCenter: parent.verticalCenter
                                             text: (itemContent.name.length >= 40) ? itemContent.nickname : itemContent.name
                                         }
 
-                                        StyledText {
+                                        FancyText {
                                             id: volume
 
                                             anchors.verticalCenter: parent.verticalCenter
@@ -120,7 +120,7 @@ Scope {
                                         }
                                     }
 
-                                    StyledText {
+                                    FancyText {
                                         id: description
                                         width: shell.width
                                         text: itemContent.properties["media.name"]

@@ -72,7 +72,7 @@ Row {
 
         TapHandler {
             id: tapHandler
-            onTapped: MixerState.showMixer = !MixerState.showMixer
+            onTapped: SystemState.showMixer = !SystemState.showMixer
         }
 
         WheelHandler {
