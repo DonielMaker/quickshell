@@ -19,7 +19,7 @@ Row {
 
     // Bind the Pipewire service to receive content
     PwObjectTracker {
-        objects: [ Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
+        objects: [ Pipewire.defaultAudioSink, Pipewire.defaultAudioSource ]
     }
 
     property int evenSinkVolume: Math.floor(Pipewire.defaultAudioSink?.audio.volume * 100)
